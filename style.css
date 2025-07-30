@@ -1,0 +1,402 @@
+/* ------------------------ */
+/* 🎨 RESET & BASE STYLES */
+/* ------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+  color: #333;
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* ------------------------ */
+/* ⏳ LOADER SCREEN */
+/* ------------------------ */
+.loader-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #ffebf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeOut 2s forwards 2s;
+}
+.loader-text {
+  font-size: 2.5rem;
+  color: #d63384;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* ------------------------ */
+/* 👋 WELCOME MESSAGE */
+/* ------------------------ */
+.welcome-message {
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease-in-out forwards;
+}
+.animate-text {
+  font-size: 1.8rem;
+  color: #d63384;
+  animation: glow 2s infinite alternate;
+}
+@keyframes fadeInUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ffb6c1; }
+  to { text-shadow: 0 0 20px #ff1493; }
+}
+
+/* ------------------------ */
+/* 🎁 GREETING SECTION */
+/* ------------------------ */
+.section.greeting {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.greeting h1 {
+  font-size: 3rem;
+  color: #ff69b4;
+}
+.greeting p {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+/* ------------------------ */
+/* 🖼️ HORIZONTAL GALLERY */
+/* ------------------------ */
+.gallery-wrapper {
+  max-width: 90%;
+  margin: auto;
+  padding: 2rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Scroll fade on edges */
+.gallery-wrapper::before,
+.gallery-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.gallery-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #fff0f5 30%, transparent);
+}
+.gallery-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #fff0f5 30%, transparent);
+}
+
+/* Gallery row */
+.gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  background: linear-gradient(to right, #ffe4ec, #fff0f5);
+  border-radius: 18px;
+  box-shadow: inset 0 0 12px rgba(255, 105, 180, 0.12);
+  scrollbar-width: none;
+}
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* Photo cards */
+.photo-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 200px;
+  height: 250px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+  border: 8px solid #fff;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+.photo-card:hover {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 14px 30px rgba(255, 105, 180, 0.5);
+  animation: bounceTilt 0.4s ease forwards;
+}
+@keyframes bounceTilt {
+  0% { transform: scale(1.05) rotate(-1deg); }
+  50% { transform: scale(1.08) rotate(-2deg); }
+  100% { transform: scale(1.05) rotate(-1deg); }
+}
+.photo-card img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  object-fit: cover !important;
+  background: white;
+}
+
+.photo-message {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: center;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+.photo-card:hover .photo-message {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .photo-card {
+    width: 160px;
+    height: 200px;
+  }
+  .gallery-wrapper::before,
+  .gallery-wrapper::after {
+    width: 30px;
+  }
+}
+
+/* ------------------------ */
+/* 🎮 NAVIGATION BUTTONS */
+/* ------------------------ */
+.nav-buttons {
+  text-align: center;
+  margin: 2rem 0;
+}
+.nav-btn.next,
+.nav-buttons button {
+  background-color: #ff4081;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.nav-btn.next:hover,
+.nav-buttons button:hover {
+  background-color: #d81b60;
+}
+
+/* ------------------------ */
+/* 🎞️ FULLSCREEN SLIDESHOW */
+/* ------------------------ */
+.slideshow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.slideshow.visible {
+  opacity: 1;
+}
+.slideshow.hidden {
+  display: none;
+}
+
+.slide-img {
+  max-width: 70vw;
+  max-height: 80vh;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transform: rotate(-1.5deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  animation: popIn 0.6s ease;
+}
+@keyframes popIn {
+  from { transform: scale(0.5) rotate(-2deg); opacity: 0; }
+  to { transform: scale(0.8) rotate(-1.5deg); opacity: 1; }
+}
+.slide-img img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 6px;
+  object-fit: contain;
+}
+.slide-caption {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-family: 'Comic Sans MS', cursive;
+  color: #d63384;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.slide-caption.visible {
+  opacity: 1;
+}
+.slideshow-controls {
+  margin-top: 2rem;
+}
+.slideshow-controls button {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  margin: 0 0.5rem;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.slideshow-controls button:hover {
+  background-color: #c2185b;
+}
+
+/* ------------------------ */
+/* 💨 SCROLL ARROWS */
+/* ------------------------ */
+.scroll-arrows {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.scroll-arrows button {
+  font-size: 1.5rem;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+  transition: background 0.3s ease;
+}
+.scroll-arrows button:hover {
+  background: #d81b60;
+}
+
+/* ------------------------ */
+/* 🎊 EMOJI PARTICLES */
+/* ------------------------ */
+.emoji-particle {
+  position: fixed;
+  top: 0;
+  font-size: 2rem;
+  pointer-events: none;
+  animation: fallDown 2s linear forwards;
+  z-index: 9999;
+}
+@keyframes fallDown {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ------------------------ */
+/* 📍 FOOTER */
+/* ------------------------ */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: transparent;
+}
+footer button {
+  background-color: #f06292;
+}
+
+@media (max-width: 768px) {
+  .photo-card {
+    width: 160px;
+    height: 200px;
+  }
+  .gallery-wrapper::before,
+  .gallery-wrapper::after {
+    width: 30px;
+  }
+  .greeting h1 {
+    font-size: 2.2rem;
+  }
+  .greeting p {
+    font-size: 1.2rem;
+  }
+  .animate-text {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 480px) {
+  .photo-card {
+    width: 140px;
+    height: 180px;
+  }
+  .slide-img {
+    max-width: 90vw;
+    max-height: 75vh;
+  }
+  .slide-caption {
+    font-size: 1rem;
+  }
+  .loader-text {
+    font-size: 1.8rem;
+  }
+}
+
+.photo-card img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  object-fit: cover !important;
+  background: white;
+  border: 1px solid pink;
+}
+.photo-card {
+  border: 2px solid hotpink !important;
+}

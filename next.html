@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Surprise 🎊</title>
+  <link rel="stylesheet" href="next.css" />
+</head>
+<body>
+  <div class="floating-emojis"></div>
+
+  <div class="final-surprise">
+    <h1>🎊 Final Surprise 🎊</h1>
+    <p>Kinal, you're amazing, and today is all about YOU!</p>
+
+    <div class="message-box">
+      <p>Here’s to more memories, love, laughter, and cake! 🎂💖</p>
+      <p>Enjoy every moment, sparkle every second ✨</p>
+    </div>
+
+    <button class="replay-btn" onclick="replaySurprise()">🔄 Replay</button>
+    <section class="wish-section">
+  <h2>Leave a Custom Wish 💌</h2>
+  <textarea id="wishInput" placeholder="Type your heartfelt message here..."></textarea>
+  <button onclick="downloadWish()">📥 Download Wish</button>
+</section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    function replaySurprise() {
+      window.location.href = "index.html";
+    }
+
+    function downloadWish() {
+      const message = `Happy Birthday Kinal!\\n\\nYou are cherished beyond words. Wishing you a year filled with joy, laughter, and unforgettable memories! 💖🎂🎉`;
+      const blob = new Blob([message], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Birthday_Wish_For_Kinal.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener("load", () => {
+      // Confetti burst
+      confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: { y: 0.6 },
+        shapes: ["circle"],
+        colors: ["#ff69b4", "#ffb3d9", "#ffd6e7", "#ffc0cb"]
+      });
+
+      // Emoji balloons
+      const emojis = ['🎈', '🎉', '🎂'];
+      for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-balloon';
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = `${Math.random() * 100}vw`;
+        emoji.style.animationDuration = `${3 + Math.random() * 5}s`;
+        document.querySelector('.floating-emojis').appendChild(emoji);
+
+        setTimeout(() => emoji.remove(), 8000);
+      }
+    });
+  </script>
+  <script>
+    function downloadWish() {
+  const wish = document.getElementById("wishInput").value.trim();
+
+  if (!wish) {
+    alert("Please write a wish before downloading!");
+    return;
+  }
+
+  const message = `🎉 A Special Birthday Wish 🎂\n\n${wish}\n\nFrom someone who cares ❤️`;
+  const blob = new Blob([message], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'My_Birthday_Wish.txt';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+  </script>
+
+</body>
+</html>
